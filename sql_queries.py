@@ -14,16 +14,17 @@ songplay_table_create = (
         start_time TIME, \
         user_id INTEGER, \
         level VARCHAR(10), \
-        song_id INTEGER,\
-        artist_id INTEGER,\
+        song_id VARCHAR(30),\
+        artist_id VARCHAR(30),\
         session_id INTEGER,\
-        location VARCHAR(200),\
-        CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),\
-        CONSTRAINT fk_song_id FOREIGN KEY(song_id) REFERENCES song(song_id),\
-        CONSTRAINT fk_artist_id FOREIGN KEY(artist_id) REFERENCES artist(artist_id)\
-        )\
+        location VARCHAR(200)\
+         )\
     "
 )
+# songplay_table_create CONSTRAINTS
+# CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),\
+# CONSTRAINT fk_song_id FOREIGN KEY(song_id) REFERENCES song(song_id),\
+# CONSTRAINT fk_artist_id FOREIGN KEY(artist_id) REFERENCES artist(artist_id)\
 
 user_table_create = (
     "CREATE TABLE IF NOT EXISTS users (\
@@ -37,18 +38,20 @@ user_table_create = (
 
 song_table_create = (
     "CREATE TABLE IF NOT EXISTS song (\
-        song_id INTEGER PRIMARY KEY, \
+       song_id VARCHAR(30) PRIMARY KEY, \
         title VARCHAR(200), \
-        artist_id INTEGER, \
+        artist_id  VARCHAR(30), \
         year INTEGER, \
-        duration NUMERIC (10, 2),\
-        CONSTRAINT fk_artist_id FOREIGN KEY(artist_id) REFERENCES artist(artist_id)\
-    )"
+        duration NUMERIC (10, 2)\
+     )"
 )
+
+# song table constraint
+# CONSTRAINT fk_artist_id FOREIGN KEY(artist_id) REFERENCES artist(artist_id)\
 
 artist_table_create = (
     "CREATE TABLE IF NOT EXISTS artist (\
-        artist_id INTEGER PRIMARY KEY, \
+        artist_id VARCHAR(30) PRIMARY KEY, \
         name VARCHAR (200),\
         location VARCHAR(100),\
         latitude VARCHAR(200),\
@@ -72,26 +75,33 @@ time_table_create = (
 
 songplay_table_insert = (
     "INSERT INTO songplay (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location) \
-    values (%s, %s, %s, %s, %s, %s)    "
+    VALUES (%s, %s, %s, %s, %s, %s)    "
 )
 
-user_table_insert = ("""
-""")
+user_table_insert = (
+    "INSERT INTO users (user_id, first_name, last_name, gender, level) \
+        VALUES (%s, %s, %s, %s, %s)"
+)
 
-song_table_insert = ("""
-""")
+song_table_insert = (
+    "INSERT INTO song (song_id, title, artist_id, year, duration) \
+        VALUES (%s, %s, %s, %s, %s)"
+)
 
-artist_table_insert = ("""
-""")
+artist_table_insert = (
+    "INSERT INTO artist (artist_id, name, location, latitude, longitude) \
+        VALUES (%s, %s, %s, %s, %s)"
+)
 
 
-time_table_insert = ("""
-""")
+time_table_insert = (
+    "INSERT INTO time (start_time, hour, day, week, month, year, weekday)\
+        VALUES (%s, %s, %s, %s, %s, %s, %s)"
+)
 
 # FIND SONGS
 
-song_select = ("""
-""")
+song_select = ("SELECT * FROM song")
 
 # QUERY LISTS
 
