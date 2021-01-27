@@ -51,11 +51,11 @@ song_table_create = (
 
 artist_table_create = (
     "CREATE TABLE IF NOT EXISTS artist (\
-        artist_id VARCHAR(30) PRIMARY KEY, \
-        name VARCHAR (200),\
-        location VARCHAR(100),\
-        latitude VARCHAR(200),\
-        longitude VARCHAR(200)\
+        artist_id VARCHAR(50) PRIMARY KEY, \
+        name VARCHAR (300),\
+        location VARCHAR(300),\
+        latitude VARCHAR(300),\
+        longitude VARCHAR(300)\
     )"
 )
 
