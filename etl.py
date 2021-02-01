@@ -6,6 +6,15 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """
+        Process a given songfile from a specific pathname, filter and handle the data from the processed file into the appropriate tables. This includes inserting data into the songs and artists tables. 
+
+        Parameters:
+            cur: the database cursor which will be used for inserting the data.
+            
+            filepath: the filepath where the songfile should be extracted from. 
+
+    """
     # open song file
     df = pd.read_json(filepath, orient='index', typ='series')
 
@@ -25,6 +34,16 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+        Process a given log_file from a specific pathname, filter it by NextSong and then filter and handle the data from the processed log_file into the tables. This includes inserting data into time, user and songplay tables. 
+
+        Parameters:
+            cur: the database cursor which will be used for inserting the data.
+            
+            filepath: the filepath where the logfile should be extracted from. 
+
+    """
+
     # open log file
     df = pd.read_json(filepath, orient='records', lines=True)
 
@@ -79,7 +98,15 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
-    # get all files matching extension from directory
+    '''
+        Get all files matching extension from directory then call the callback function for handling and setting the data. 
+        Once that is done, the connection commits all the data that was inserted. 
+            Parameters:
+                cur: The current database cursor
+                conn: the current connection object
+                filepath: the filepath where the files must be fetched from
+                func: The callback function which will be called once the extraction is complete
+    '''
     all_files = []
     for root, dirs, files in os.walk(filepath):
         files = glob.glob(os.path.join(root, '*.json'))
@@ -98,6 +125,10 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    '''
+        Main function, which handles all the ETL process during the execution. 
+        First the song_data goes through the pipeline and then the log_file data
+    '''
     conn = psycopg2.connect(
         "host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()

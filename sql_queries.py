@@ -18,13 +18,15 @@ songplay_table_create = (
         artist_id VARCHAR(30),\
         session_id INTEGER,\
         location VARCHAR(200)\
-         )\
+     )\
     "
 )
-# songplay_table_create CONSTRAINTS
+
+# songplay_table_create FK CONSTRAINTS
 # CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),\
-# CONSTRAINT fk_song_id FOREIGN KEY(song_id) REFERENCES song(song_id),\
-# CONSTRAINT fk_artist_id FOREIGN KEY(artist_id) REFERENCES artist(artist_id)\
+# CONSTRAINT fk_song_id FOREIGN KEY(song_id) REFERENCES songs(song_id),\
+# CONSTRAINT fk_artist_id FOREIGN KEY(artist_id) REFERENCES artists(artist_id),\
+# CONSTRAINT fk_time_id FOREIGN KEY(start_time) REFERENCES time(start_time)\
 
 user_table_create = (
     "CREATE TABLE IF NOT EXISTS users (\
@@ -42,12 +44,9 @@ song_table_create = (
         title VARCHAR(200), \
         artist_id  VARCHAR(30), \
         year INTEGER, \
-        duration NUMERIC (10, 2)\
+        duration NUMERIC\
      )"
 )
-
-# song table constraint
-# CONSTRAINT fk_artist_id FOREIGN KEY(artist_id) REFERENCES artist(artist_id)\
 
 artist_table_create = (
     "CREATE TABLE IF NOT EXISTS artists (\
@@ -82,7 +81,7 @@ songplay_table_insert = (
 user_table_insert = (
     "INSERT INTO users (user_id, first_name, last_name, gender, level) \
         VALUES (%s, %s, %s, %s, %s)\
-        ON CONFLICT DO NOTHING"
+        ON CONFLICT (user_id) DO UPDATE SET level=EXCLUDED.level"
 )
 
 song_table_insert = (
