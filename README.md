@@ -11,9 +11,9 @@ The goal is to simply to fullfil the hypothetical analytics team's need of under
 The data is structured on the `/data` folders, song_data being the data from the dataset and log_data from the event generator. `etl.py` handles the ETL pipeline and populates the tables, as well as creating the songplay data, which follows the [Star schema](https://www.javatpoint.com/data-warehouse-what-is-star-schema). 
 
 
-Here's an:
+Here's an ER Diagram of the used tables:
 
-![ ER Diagram of the tables used](./ER-diagram.png " ER Diagram of the tables used")
+![ ER Diagram of the tables used](./ER-diagram.png " ER Diagram image describing the table flow")
 
 # Using the code
 
